@@ -1,7 +1,6 @@
 import sys
 import random
 import math
-import numpy as np
 from threading import Lock
 
 import rclpy
@@ -19,6 +18,9 @@ from auro_interfaces.srv import ItemRequest
 from assessment_interfaces.msg import ItemHolders, ItemLog, ItemList, RobotList, ZoneList
 
 
+###############################################################################
+# Robot Controller
+###############################################################################
 class RobotController(Node):
 
     def __init__(self, robot_name='robot1', zone_number=1, item_color='RED'):
@@ -65,6 +67,9 @@ class RobotController(Node):
         self.timer_period = 0.1  # 100 milliseconds = 10 Hz
         self.timer = self.create_timer(self.timer_period, self.control_loop, callback_group=timer_callback_group)
 
+        #######################################################################
+        # Services, Publishers, and Subscribers
+        #######################################################################
         # Velocity publisher
         self.cmd_vel_pub = self.create_publisher(Twist, f'{self.robot_name}/cmd_vel', 10)
 
